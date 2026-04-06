@@ -87,3 +87,52 @@ System.out.println(sameGreaterThan(grid, 0));
 
     }
 }
+    public static int rowHigh(int[][] grid){
+    int highest = 0;
+    int num = 0;
+
+    for (int row = 0; row < grid.length; row++){
+        int sum = 0;
+        for (int col = 0; col < grid[0].length; col++){
+            sum += grid[row][col];
+        }
+        if (sum > highest){
+            highest = sum;
+            num = row;
+        }
+    }
+    return num;
+}
+public static int colWithLowestSum(int[][] grid){
+    int low = 0;
+    int num = 0;
+
+    for (int col = 0; col < grid[0].length; col++){
+        int sum = 0;
+        for (int row = 0; row < grid.length; row++){
+            sum += grid[row][col];
+        }
+        if (sum < low){
+            low = sum;
+            num = col;
+        }
+    }
+    return num;
+}
+public static int increaseRow(int[][] grid){
+    for (int row = 0; row < grid.length; row++){
+        boolean increasing = true;
+
+        for (int c = 1; c < grid[0].length; c++){
+            if (grid[row][c] <= grid[row][c - 1]){
+                increasing = false;
+                return -1;
+            }
+        }
+
+        if (increasing) {
+            return row;
+        }
+    }
+    return -1;
+}
