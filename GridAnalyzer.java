@@ -1,17 +1,96 @@
+import java.util.Scanner;
+public class GridAnalyzer {
+ public static void main(String[] args) {
 
+    Scanner input = new Scanner(System.in);
 
-public class GridAnalyzer{
- public static void main (String[] args){
-    int[][] grid= 
-{{0, 1, 2, 3, 4, 5, 6} , {0, 1, 2, 3, 4, 5, 6},
-{0, 1, 2, 3, 4, 5, 6}, {0, 1, 2, 3, 4, 5, 6},
-{0, 1, 2, 3, 4, 5, 6}, {0, 1, 2, 3, 4, 5, 6}}; 
+    int[][] grid = {
+        {0,1,2,3,4,5,6},{0,1,2,3,4,5,6},
+        {0,1,2,3,4,5,6},{0,1,2,3,4,5,6},
+        {0,1,2,3,4,5,6},{0,1,2,3,4,5,6}};
 
-System.out.println((sameGreaterThan(grid, 0)));
+    int choice = -1;
 
+    while (choice != 0) {
+
+        System.out.println("1.Display  2.Sums  3.Max/Min  4.Freq  5.Pattern  6.Subgrid  7.Boundary  8.Check  0.Exit");
+        choice = input.nextInt();
+
+        if (choice == 1) {
+            displayGrid(grid);
+        }
+
+        else if (choice == 2) {
+            int[] r = rowSum(grid);
+            int[] c = colSum(grid);
+
+            System.out.println("Row sums: ");
+
+            for (int x : r) 
+            {
+                System.out.print(x + " ");
+            }
+            System.out.println();
+            
+            System.out.println("Column sums: ");
+
+            for (int x : c) System.out.print(x + " ");
+        }
+
+        else if (choice == 3) {
+            int[] a = max(grid);
+            int[] b = min(grid);
+
+            System.out.println("Max: " + a[0]);
+            System.out.println("Min: " + b[0]);
+        }
+
+        else if (choice == 4) {
+            System.out.println("Enter a number: ");
+            int num = input.nextInt();
+            int[] res = sameGreaterThan(grid, num);
+
+            System.out.println("This is the frequency of " + num + ": " + res[0] + ", and the number of numbers greather than" + num + ": " + res[1]);
+        }
+
+        else if (choice == 5) {
+            System.out.println(increaseRow(grid));
+        }
+
+        else if (choice == 6) {
+            System.out.println("write the starting row, starting column, ending row, and ending column: ");
+            int rS = input.nextInt();
+            int cS = input.nextInt();
+            int rE = input.nextInt();
+            int cE = input.nextInt();
+        
+            System.out.println("Sum of subgrid: " + sumOfSubgrid(grid, rS, cS, rE, cE));
+            System.out.println("Max of subgrid: " + maxOfSubgrid(grid, rS, cS, rE, cE));
+        }
+
+        else if (choice == 7) {
+            System.out.println("Boundary: ");
+            Boundary(grid);
+        }
+
+        else if (choice == 8) {
+            System.out.println(rowHasDups(grid));
+        }
+    }
+
+    input.close();
  }
 
- // day 1 morning
+ public static void displayGrid(int[][] grid){
+    for (int row = 0; row < grid.length; row++){
+        for (int col = 0; col < grid[0].length; col++){
+
+            System.out.print(grid[row][col] + " ");
+        }
+        System.out.println();
+    }
+}
+
  public static int[] rowSum(int[][] grid){
     int[] rowSum = new int[grid.length];
 
@@ -179,7 +258,7 @@ public static void Boundary(int[][] grid) {
 public static boolean rowHasDups(int[][] grid){
     for (int row = 0; row < grid.length; row++){
         for (int col = 0; col < grid[0].length; col++){
-            
+
             for (int c = col + 1; c < grid[0].length; c++){
                 if (grid[row][col] == grid[row][c]){
                     return true;
