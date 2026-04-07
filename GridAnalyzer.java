@@ -1,7 +1,13 @@
+
+
 public class GridAnalyzer{
  public static void main (String[] args){
-    int[][] grid= new int[6][6]; 
-System.out.println(sameGreaterThan(grid, 0));
+    int[][] grid= 
+{{0, 1, 2, 3, 4, 5, 6} , {0, 1, 2, 3, 4, 5, 6},
+{0, 1, 2, 3, 4, 5, 6}, {0, 1, 2, 3, 4, 5, 6},
+{0, 1, 2, 3, 4, 5, 6}, {0, 1, 2, 3, 4, 5, 6}}; 
+
+System.out.println((sameGreaterThan(grid, 0)));
 
  }
 
@@ -28,7 +34,6 @@ System.out.println(sameGreaterThan(grid, 0));
     }
     return rowSum;
  }
- // day 2 night
 
 
  public static int[] max(int[][] grid){
@@ -37,7 +42,7 @@ System.out.println(sameGreaterThan(grid, 0));
     int c=0;
 
     for (int row = 0; row < grid.length; row++){
-        for (int col = 0; col < grid[0].length; col++){
+        for (int col = 0; col < grid[0].length; col++)
             if (grid[row][col] > max){
                 max = grid[row][col];
                 r=row;
@@ -45,10 +50,11 @@ System.out.println(sameGreaterThan(grid, 0));
             }
 
         }
-    }
     int[] MRC= {max, r, c};
     return MRC;
- }
+    }
+
+ 
 
 
      public static int[] min(int[][] grid) {
@@ -86,7 +92,6 @@ System.out.println(sameGreaterThan(grid, 0));
         return count;
 
     }
-}
     public static int rowHigh(int[][] grid){
     int highest = 0;
     int num = 0;
@@ -135,4 +140,54 @@ public static int increaseRow(int[][] grid){
         }
     }
     return -1;
+}
+
+public static int sumOfSubgrid(int[][] grid, int rS, int cS, int rE, int cE){
+    int sum = 0;
+
+    for (int row = rS; row <= rE; row++){
+        for (int col = cS; col <= cE; col++){
+            sum += grid[row][col];
+        }
+    }
+    return sum;
+
+}
+public static int maxOfSubgrid(int[][] grid, int rS, int cS, int rE, int cE){
+    int max = grid[rS][cS];
+
+    for (int row = rS; row <= rE; row++){
+        for (int col = cS; col <= cE; col++){
+            if (grid[row][col] > max){
+                max = grid[row][col];
+            }
+        }
+    }
+    return max;
+}
+
+public static void Boundary(int[][] grid) {
+    for (int row = 0; row < grid.length; row++) {
+        for (int col = 0; col < grid[0].length; col++) {
+
+            if (row == 0 || row == grid.length - 1 || col == 0 || col == grid[0].length - 1) {
+                System.out.print(grid[row][col] + " ");
+            }
+        }
+    }
+}
+public static boolean rowHasDups(int[][] grid){
+    for (int row = 0; row < grid.length; row++){
+        for (int col = 0; col < grid[0].length; col++){
+            
+            for (int c = col + 1; c < grid[0].length; c++){
+                if (grid[row][col] == grid[row][c]){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+
+}
 }
